@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "927390979977",
+    "firebase_url": "https://employeetracking-1caec.firebaseio.com",
+    "project_id": "employeetracking-1caec",
+    "storage_bucket": "employeetracking-1caec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927390979977:android:b8beb0db608d858b",
+        "android_client_info": {
+          "package_name": "employeetrack.beit.employeetrack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "927390979977-rc4f4dvlb18quebv7r6mb4nmamnjc4jd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAMqq6dE4m8EBuBPhEfn-_7b0OF9f2t7A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927390979977:android:d5bdef9d30182b8d",
+        "android_client_info": {
+          "package_name": "beit.employee.employeetrackemployee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "927390979977-rc4f4dvlb18quebv7r6mb4nmamnjc4jd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAMqq6dE4m8EBuBPhEfn-_7b0OF9f2t7A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
