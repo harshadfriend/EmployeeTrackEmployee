@@ -69,15 +69,16 @@
             android:background="@drawable/buttonborder"
             android:layout_width="0dp"
             android:layout_height="100dp" />
-        <Button
-            android:layout_margin="1dp"
-            android:id="@+id/btnLogout"
-            android:textSize="21dp"
-            android:text="Logout"
-            android:layout_weight="1"
-            android:background="@drawable/buttonborder"
-            android:layout_width="0dp"
-            android:layout_height="100dp" />
+
     </LinearLayout>
+    <Button
+        android:layout_margin="1dp"
+        android:id="@+id/btnLoginLogout"
+        android:textSize="21dp"
+        android:text="Login"
+
+        android:background="@drawable/buttonborder"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
 
 </LinearLayout>
