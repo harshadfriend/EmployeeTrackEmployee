@@ -7,10 +7,24 @@ package beit.employee.employeetrackemployee;
     public class fbase {
         private String name;
         private String lat, lon, time,imei,session;
+        private String uname,pwd;
 
         public fbase(){
         }
 
+    public String getUname(){
+        return uname;
+    }
+    public void setUname(String uname){
+        this.uname=uname;
+    }
+
+    public String getPwd(){
+        return pwd;
+    }
+    public void setPwd(String pwd){
+        this.pwd=pwd;
+    }
         public String getName(){
             return name;
         }

@@ -24,7 +24,7 @@ public class Home extends AppCompatActivity {
     int day,month,year;
     int hour,minute,sec;
     TelephonyManager telephonyManager;
-    String latitude,longitude;
+    String latitude,longitude,imei;
     String time;
     int i;
     Firebase fbref;
@@ -50,7 +50,7 @@ public class Home extends AppCompatActivity {
 
 
         telephonyManager=(TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-
+        imei=telephonyManager.getImei();
 
         i = 0;
 
@@ -89,7 +89,9 @@ public class Home extends AppCompatActivity {
         btnAttend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Home.this,Attendance.class));
+                Intent i=new Intent(Home.this,Attendance.class);
+                i.putExtra("imei",imei);
+                startActivity(i);
             }
         });
 
@@ -136,7 +138,7 @@ public class Home extends AppCompatActivity {
                                 obj2.setlat("" + latitude);
                                 obj2.setlon("" + longitude);
                                obj2.setName(telephonyManager.getImei());
-                                fbref.child("employee").child(telephonyManager.getImei()).child("livelocation").setValue(obj2);
+                                fbref.child("employee").child("livelocation").child(telephonyManager.getImei()).setValue(obj2);
 //                                fbref.child("employee").child(telephonyManager.getImei()).child(date).child("Login "+time).setValue(obj);
 
                             }
@@ -158,7 +160,7 @@ public class Home extends AppCompatActivity {
                         };
                         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,5000,10,ll);
                         Log.d("before fbref","test "+date+" "+time+" "+telephonyManager.getImei());
-                        fbref.child("employee").child(telephonyManager.getImei()).child(date).child("Login "+time).setValue(obj);
+                        fbref.child("employee").child("attendance").child(telephonyManager.getImei()).child(date).child("Login "+time).setValue(obj);
                         i = 1;
 
                     }
@@ -177,7 +179,7 @@ public class Home extends AppCompatActivity {
                     obj.setImei(""+telephonyManager.getImei());*/
                     obj.setlat(" "+latitude);
                     obj.setlon(" "+longitude);
-                    fbref.child("employee").child(telephonyManager.getImei()).child(date).child("Logout "+time).setValue(obj);
+                    fbref.child("employee").child("attendance").child(telephonyManager.getImei()).child(date).child("Logout "+time).setValue(obj);
                     i = 0;
                 }
 
