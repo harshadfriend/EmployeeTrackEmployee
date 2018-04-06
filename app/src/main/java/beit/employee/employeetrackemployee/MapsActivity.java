@@ -68,12 +68,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     fbase pson = data.getValue(fbase.class);
-                    //Toast.makeText(busGrid.this, "Name: " + pson.getName() + "Address: " + pson.getAddress(), Toast.LENGTH_SHORT).show();
-                    //tvBusGrid.setText(pson.getAddress());
-                    //tvResult.setText("Name: "+pson.getName()+"\nAddress: "+pson.getAddress());
-                    //tvResult.setText("Address: "+pson.getAddress());
-//                    x=Integer.parseInt(pson.getAddress());
-//                    y=Integer.parseInt(pson.getAddress1());
+
                     x=Double.parseDouble(pson.getlat());  //parse the values to double format from string
                     y=Double.parseDouble(pson.getlon());  //parse the values to double format from string
 
@@ -97,6 +92,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+        Query query1 = dbRef.child("vehicle").child("livelocation").orderByChild("name").equalTo(Name);
+        query1.addValueEventListener(new com.google.firebase.database.ValueEventListener() {
+            @Override
+            public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    fbase pson = data.getValue(fbase.class);
+
+                    x=Double.parseDouble(pson.getlat());  //parse the values to double format from string
+                    y=Double.parseDouble(pson.getlon());  //parse the values to double format from string
+
+                    //  Toast.makeText(MapsActivity.this,""+x+" "+y, Toast.LENGTH_SHORT).show();  //show coordinates
+
+                    // mMap.clear();  //clear previous markers
+
+                    //mMap.setMaxZoomPreference(5);
+                    //mMap.addMarker(new MarkerOptions().position(new LatLng(x,y)).title("You are here !"));  //add marker to desired position
+                    mMap.addCircle(new CircleOptions().center(new LatLng(x,y)).radius(10).fillColor(Color.CYAN).strokeColor(Color.GREEN));
+                    mMap.addPolyline(new PolylineOptions().add(new LatLng(x,y)).color(Color.BLUE));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(x,y),17));  //move camera along with zoom level, here 17
+                    //onMapReady();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Toast.makeText(busGrid.this, "Error", Toast.LENGTH_SHORT).show();
+
+            }
+        });
         // Add a marker in Sydney and move the camera
         //LatLng sydney = new LatLng(x, 351);
         //mMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng()));

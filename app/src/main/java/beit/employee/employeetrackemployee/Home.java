@@ -104,7 +104,8 @@ public class Home extends AppCompatActivity {
         btnLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(Home.this,Settings.class));
+                MapsActivity.Name=imei;
+                startActivity(new Intent(Home.this,MapsActivity.class));
             }
         });
 

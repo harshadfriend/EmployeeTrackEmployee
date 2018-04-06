@@ -18,7 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Attendance extends AppCompatActivity {
     ListView lvAttend;
-    ArrayAdapter<String> adp;
+    ArrayAdapter<String> adp,adp2;
     Firebase firebase;
     String dburl="https://employeetracking-1caec.firebaseio.com/";
     DatabaseReference dbRef;
@@ -43,6 +43,10 @@ public class Attendance extends AppCompatActivity {
         lvAttend=(ListView)findViewById(R.id.lvAttend);
         adp=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
         adp.setNotifyOnChange(true);
+
+        adp2=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
+        adp2.setNotifyOnChange(true);
+
         lvAttend.setAdapter(adp);
 
         Query q=dbRef.child("employee").child("attendance").child(imei);
@@ -61,7 +65,7 @@ public class Attendance extends AppCompatActivity {
                     str+="\n";
                     adp.add(str);
                 }
-//                Toast.makeText(Attendance.this, ""+str, Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(Attendance.this, ""+dataSnapshot.getChildrenCount(), Toast.LENGTH_SHORT).show();
                 if(dataSnapshot.getChildrenCount()>0)
                     lvAttend.setAdapter(adp);
             }
@@ -76,7 +80,7 @@ public class Attendance extends AppCompatActivity {
         q2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                adp.clear();
+                adp2.clear();
                 for(DataSnapshot data:dataSnapshot.getChildren()) {
                     str="";
                     str+="Date: "+data.getKey()+"\n"+"------------------------------";
@@ -86,9 +90,9 @@ public class Attendance extends AppCompatActivity {
 //                    adp.add(f.getName()+" "+f.getAddress()+"\n"+f.getMobile());
                     }
                     str+="\n";
-                    adp.add(str);
+                    adp2.add(str);
                 }
-//                Toast.makeText(Attendance.this, ""+str, Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(Attendance.this, "test"+dataSnapshot.getChildrenCount(), Toast.LENGTH_SHORT).show();
                 if(dataSnapshot.getChildrenCount()>0)
                     lvAttend.setAdapter(adp);
             }
