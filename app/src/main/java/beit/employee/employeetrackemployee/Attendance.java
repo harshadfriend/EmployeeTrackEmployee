@@ -62,8 +62,8 @@ public class Attendance extends AppCompatActivity {
                     adp.add(str);
                 }
 //                Toast.makeText(Attendance.this, ""+str, Toast.LENGTH_SHORT).show();
-
-                lvAttend.setAdapter(adp);
+                if(dataSnapshot.getChildrenCount()>0)
+                    lvAttend.setAdapter(adp);
             }
 
             @Override
@@ -89,8 +89,8 @@ public class Attendance extends AppCompatActivity {
                     adp.add(str);
                 }
 //                Toast.makeText(Attendance.this, ""+str, Toast.LENGTH_SHORT).show();
-
-                lvAttend.setAdapter(adp);
+                if(dataSnapshot.getChildrenCount()>0)
+                    lvAttend.setAdapter(adp);
             }
 
             @Override
