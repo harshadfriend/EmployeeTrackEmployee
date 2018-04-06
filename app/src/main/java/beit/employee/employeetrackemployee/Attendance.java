@@ -49,15 +49,20 @@ public class Attendance extends AppCompatActivity {
         q.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                adp.clear();
                 for(DataSnapshot data:dataSnapshot.getChildren()) {
-                    str+=data.getKey();
+                    str="";
+                    str+="Date: "+data.getKey()+"\n"+"------------------------------";
                     for (DataSnapshot d : data.getChildren()) {
                         fbase f = data.getValue(fbase.class);
-                        str+=d.getKey();
+                        str+="\n"+d.getKey();
 //                    adp.add(f.getName()+" "+f.getAddress()+"\n"+f.getMobile());
                     }
+                    str+="\n";
+                    adp.add(str);
                 }
-                Toast.makeText(Attendance.this, ""+str, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(Attendance.this, ""+str, Toast.LENGTH_SHORT).show();
+
                 lvAttend.setAdapter(adp);
             }
 
