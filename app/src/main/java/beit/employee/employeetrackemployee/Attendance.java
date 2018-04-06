@@ -72,6 +72,33 @@ public class Attendance extends AppCompatActivity {
             }
         });
 
+        Query q2=dbRef.child("vehicle").child("attendance").child(imei);
+        q2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                adp.clear();
+                for(DataSnapshot data:dataSnapshot.getChildren()) {
+                    str="";
+                    str+="Date: "+data.getKey()+"\n"+"------------------------------";
+                    for (DataSnapshot d : data.getChildren()) {
+                        fbase f = data.getValue(fbase.class);
+                        str+="\n"+d.getKey();
+//                    adp.add(f.getName()+" "+f.getAddress()+"\n"+f.getMobile());
+                    }
+                    str+="\n";
+                    adp.add(str);
+                }
+//                Toast.makeText(Attendance.this, ""+str, Toast.LENGTH_SHORT).show();
+
+                lvAttend.setAdapter(adp);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         lvAttend.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

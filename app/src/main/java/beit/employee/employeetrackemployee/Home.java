@@ -39,7 +39,7 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Snackbar.make(getCurrentFocus(),"Login Successful !",Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(findViewById(android.R.id.content),"Login Successful !",Snackbar.LENGTH_SHORT).show();
 
         Firebase.setAndroidContext(this);
         fbref=new Firebase(dburl);
