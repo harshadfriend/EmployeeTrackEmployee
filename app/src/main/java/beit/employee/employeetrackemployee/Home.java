@@ -27,7 +27,10 @@ public class Home extends AppCompatActivity {
     String latitude,longitude,imei;
     String time;
     int i;
+
     Firebase fbref;
+    fbase obj;
+    fbase obj2;
     String dburl="https://employeetracking-1caec.firebaseio.com/";
 
     @Override
@@ -36,9 +39,9 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         Firebase.setAndroidContext(this);
-        final Firebase fbref=new Firebase(dburl);
-        final fbase obj=new fbase();
-        final fbase obj2=new fbase();
+        fbref=new Firebase(dburl);
+        obj=new fbase();
+        obj2=new fbase();
 
         btnProfile=findViewById(R.id.btnProfile);
         btnSettings=findViewById(R.id.btnSettings);

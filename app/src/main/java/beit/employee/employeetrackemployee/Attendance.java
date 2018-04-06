@@ -29,14 +29,16 @@ public class Attendance extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance);
 
+        Firebase.setAndroidContext(this);
+        firebase=new Firebase(dburl);
+        dbRef = FirebaseDatabase.getInstance().getReference();
+
+
         Bundle extras=getIntent().getExtras();
         imei=extras.getString("imei");
 
         lvAttend=findViewById(R.id.lvAttend);
 
-        Firebase.setAndroidContext(this);
-        firebase=new Firebase(dburl);
-        dbRef = FirebaseDatabase.getInstance().getReference();
 
         lvAttend=(ListView)findViewById(R.id.lvAttend);
         adp=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);

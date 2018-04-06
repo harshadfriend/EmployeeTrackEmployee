@@ -67,9 +67,9 @@ public class LoginActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_login);
 
         // Set up the login form.
-//        Firebase.setAndroidContext(this);
-//        firebase=new Firebase(dburl);
-//        dbRef = FirebaseDatabase.getInstance().getReference();
+        Firebase.setAndroidContext(this);
+        firebase=new Firebase(dburl);
+        dbRef = FirebaseDatabase.getInstance().getReference();
 
         telephonyManager=(TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
 
