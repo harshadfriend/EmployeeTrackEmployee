@@ -14,6 +14,7 @@ android {
     dexOptions {
         javaMaxHeapSize "2g"
     }
+
     buildTypes {
         release {
             minifyEnabled true //by default false, make it true to shrink the code
