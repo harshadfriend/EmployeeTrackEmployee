@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_login);
 
         // Set up the login form.
-        Firebase.setAndroidContext(this);
+        Firebase.setAndroidContext(LoginActivity.this);
         firebase=new Firebase(dburl);
         dbref=FirebaseDatabase.getInstance().getReference();
 
