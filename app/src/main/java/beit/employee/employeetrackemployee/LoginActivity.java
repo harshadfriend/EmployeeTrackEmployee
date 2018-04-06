@@ -4,6 +4,7 @@ package beit.employee.employeetrackemployee;
 import android.content.Context;
 import android.content.Intent;
 
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 
 
@@ -86,7 +87,7 @@ public class LoginActivity extends AppCompatActivity  {
         btnLogin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-            /*    Query q=dbRef.child("employee").child("profile").orderByChild("imei").equalTo(telephonyManager.getImei());
+                Query q=dbref.child("employee").child("profile").orderByChild("imei").equalTo(telephonyManager.getImei());
                 q.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -94,10 +95,13 @@ public class LoginActivity extends AppCompatActivity  {
                             fbase f=data.getValue(fbase.class);
                             if(f.getUname().equals(actvUname.getText().toString()) &&
                                     f.getPwd().equals(etPassword.getText().toString())){
-                                Toast.makeText(LoginActivity.this, "Login Successful !", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(LoginActivity.this, "Login Successful !", Toast.LENGTH_SHORT).show();
+
                                 startActivity(new Intent(LoginActivity.this,Home.class));
                                 finish();
                             }
+                            else
+                                Snackbar.make(getCurrentFocus(),"Invalid Username or Password !",Snackbar.LENGTH_SHORT).show();
                         }
                     }
 
@@ -105,9 +109,9 @@ public class LoginActivity extends AppCompatActivity  {
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
-                });*/
-                startActivity(new Intent(LoginActivity.this,Home.class));
-                finish();
+                });
+//                startActivity(new Intent(LoginActivity.this,Home.class));
+//                finish();
             }
         });
     }
