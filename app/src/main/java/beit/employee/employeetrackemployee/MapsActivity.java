@@ -78,8 +78,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     //mMap.setMaxZoomPreference(5);
                     //mMap.addMarker(new MarkerOptions().position(new LatLng(x,y)).title("You are here !"));  //add marker to desired position
-                    mMap.addCircle(new CircleOptions().center(new LatLng(x,y)).radius(10).fillColor(Color.CYAN).strokeColor(Color.GREEN));
-                    mMap.addPolyline(new PolylineOptions().add(new LatLng(x,y)).color(Color.BLUE));
+                    mMap.addCircle(new CircleOptions().center(new LatLng(x,y)).radius(3).fillColor(Color.RED).strokeColor(Color.RED));
+                    mMap.addPolyline(new PolylineOptions().add(new LatLng(x,y)).color(Color.RED).width(5));
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(x,y),17));  //move camera along with zoom level, here 17
                     //onMapReady();
                 }
@@ -109,8 +109,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     //mMap.setMaxZoomPreference(5);
                     //mMap.addMarker(new MarkerOptions().position(new LatLng(x,y)).title("You are here !"));  //add marker to desired position
-                    mMap.addCircle(new CircleOptions().center(new LatLng(x,y)).radius(10).fillColor(Color.CYAN).strokeColor(Color.GREEN));
-                    mMap.addPolyline(new PolylineOptions().add(new LatLng(x,y)).color(Color.BLUE));
+                    mMap.addCircle(new CircleOptions().center(new LatLng(x,y)).radius(3).fillColor(Color.RED).strokeColor(Color.RED));
+                    mMap.addPolyline(new PolylineOptions().add(new LatLng(x,y)).color(Color.BLUE).width(5));
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(x,y),17));  //move camera along with zoom level, here 17
                     //onMapReady();
                 }
