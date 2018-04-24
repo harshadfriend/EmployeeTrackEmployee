@@ -4,10 +4,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -21,42 +23,52 @@ import java.util.Calendar;
 
 public class Home extends AppCompatActivity {
 
-    Button btnProfile,btnSettings,btnHelp,btnLoginLogout,btnAttend,btnLocation;
-    int day,month,year;
-    int hour,minute,sec;
+    Button btnProfile, btnSettings, btnHelp, btnLoginLogout, btnAttend, btnLocation;
+    int day, month, year;
+    int hour, minute, sec;
     TelephonyManager telephonyManager;
-    String latitude,longitude,imei;
+    String latitude, longitude, imei;
     String time;
     int i;
 
     Firebase fbref;
     fbase obj;
     fbase obj2;
-    String dburl="https://employeetracking-1caec.firebaseio.com/";
+    String dburl = "https://employeetracking-1caec.firebaseio.com/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Snackbar.make(findViewById(android.R.id.content),"Login Successful !",Snackbar.LENGTH_SHORT).show();
+        //  Snackbar.make(findViewById(android.R.id.content),"Login Successful !",Snackbar.LENGTH_SHORT).show();
 
         Firebase.setAndroidContext(this);
-        fbref=new Firebase(dburl);
-        obj=new fbase();
-        obj2=new fbase();
+        fbref = new Firebase(dburl);
+        obj = new fbase();
+        obj2 = new fbase();
 
-        btnProfile=findViewById(R.id.btnProfile);
-        btnSettings=findViewById(R.id.btnSettings);
-        btnHelp=findViewById(R.id.btnHelp);
-        btnLoginLogout=findViewById(R.id.btnLoginLogout);
-        btnAttend=findViewById(R.id.btnAttnd);
-        btnLocation=findViewById(R.id.btnLocation);
+        btnProfile = findViewById(R.id.btnProfile);
+        btnSettings = findViewById(R.id.btnSettings);
+        btnHelp = findViewById(R.id.btnHelp);
+        btnLoginLogout = findViewById(R.id.btnLoginLogout);
+        btnAttend = findViewById(R.id.btnAttnd);
+        btnLocation = findViewById(R.id.btnLocation);
 
 
+        telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
 
-        telephonyManager=(TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-        imei=telephonyManager.getImei();
+        imei = telephonyManager.getImei();
 
         i = 0;
 
@@ -115,7 +127,20 @@ public class Home extends AppCompatActivity {
                 if (i == 0) {
                     LocationManager locationManager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
                     if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                        new AlertDialog.Builder(Home.this).setTitle("GPS not Enabled !").
+                                setMessage("Enable GPS ?").
+                                setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                                    }
+                                }).
+                                setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    }
+                                }).show();
                     }
                     //Toast.makeText(getBaseContext(), ""+telephonyManager.getImei(), Toast.LENGTH_SHORT).show();
                     else{

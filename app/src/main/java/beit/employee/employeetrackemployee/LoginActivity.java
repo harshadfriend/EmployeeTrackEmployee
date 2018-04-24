@@ -4,7 +4,9 @@ package beit.employee.employeetrackemployee;
 import android.content.Context;
 import android.content.Intent;
 
+import android.content.pm.PackageManager;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 
 
@@ -42,7 +44,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity  {
+public class LoginActivity extends AppCompatActivity {
 
     TelephonyManager telephonyManager;
     AutoCompleteTextView actvUname;
@@ -50,7 +52,7 @@ public class LoginActivity extends AppCompatActivity  {
     Button btnLogin;
 
     Firebase firebase;
-    String dburl="https://employeetracking-1caec.firebaseio.com/";
+    String dburl = "https://employeetracking-1caec.firebaseio.com/";
     DatabaseReference dbref;
 
     @Override
@@ -60,15 +62,15 @@ public class LoginActivity extends AppCompatActivity  {
 
         // Set up the login form.
         Firebase.setAndroidContext(LoginActivity.this);
-        firebase=new Firebase(dburl);
-        dbref=FirebaseDatabase.getInstance().getReference();
+        firebase = new Firebase(dburl);
+        dbref = FirebaseDatabase.getInstance().getReference();
 
-        Query q= dbref.child("employee").child("profile");
+        Query q = dbref.child("employee").child("profile");
         q.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot data:dataSnapshot.getChildren()){
-                    Log.d("studio",data.getKey());
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    Log.d("studio", data.getKey());
                 }
             }
 
@@ -78,16 +80,26 @@ public class LoginActivity extends AppCompatActivity  {
             }
         });
 
-        telephonyManager=(TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 
-        actvUname=findViewById(R.id.actvUname);
-        etPassword=findViewById(R.id.etPassword);
-        btnLogin=findViewById(R.id.btnLogin);
+        actvUname = findViewById(R.id.actvUname);
+        etPassword = findViewById(R.id.etPassword);
+        btnLogin = findViewById(R.id.btnLogin);
 
         btnLogin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Query q=dbref.child("employee").child("profile").orderByChild("imei").equalTo(telephonyManager.getImei());
+                if (ActivityCompat.checkSelfPermission(LoginActivity.this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+                Query q = dbref.child("employee").child("profile").orderByChild("imei").equalTo(telephonyManager.getImei());
                 q.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -96,8 +108,9 @@ public class LoginActivity extends AppCompatActivity  {
                             if(f.getUname().equals(actvUname.getText().toString()) &&
                                     f.getPwd().equals(etPassword.getText().toString())){
                                 //Toast.makeText(LoginActivity.this, "Login Successful !", Toast.LENGTH_SHORT).show();
-
-                                startActivity(new Intent(LoginActivity.this,Home.class));
+                                Intent i=new Intent(LoginActivity.this,WelcomeScreen.class);
+                                i.putExtra("name",f.getName());
+                                startActivity(i);
                                 finish();
                             }
                             else
