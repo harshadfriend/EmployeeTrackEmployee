@@ -89,16 +89,8 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ActivityCompat.checkSelfPermission(LoginActivity.this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
-                }
+//                Toast.makeText(LoginActivity.this, ""+telephonyManager.getImei(), Toast.LENGTH_SHORT).show();
+
                 Query q = dbref.child("employee").child("profile").orderByChild("imei").equalTo(telephonyManager.getImei());
                 q.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -110,6 +102,10 @@ public class LoginActivity extends AppCompatActivity {
                                 //Toast.makeText(LoginActivity.this, "Login Successful !", Toast.LENGTH_SHORT).show();
                                 Intent i=new Intent(LoginActivity.this,WelcomeScreen.class);
                                 i.putExtra("name",f.getName());
+                                i.putExtra("mobile",f.getMobile());
+                                i.putExtra("address",f.getAddress());
+                                i.putExtra("imei",f.getImei());
+                                //Toast.makeText(LoginActivity.this, "Login true debug", Toast.LENGTH_SHORT).show();
                                 startActivity(i);
                                 finish();
                             }

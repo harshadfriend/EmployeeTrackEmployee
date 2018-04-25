@@ -8,21 +8,37 @@ package beit.employee.employeetrackemployee;
         private String name;
         private String lat, lon, time,imei,session;
         private String uname,pwd;
+        private String mobile,address;
 
         public fbase(){
         }
 
-    public String getUname(){
+        public String getAddress(){
+            return address;
+        }
+
+        public void setAddress(String address){
+            this.address=address;
+        }
+
+        public String getMobile(){
+            return mobile;
+        }
+        public void setMobile(String mobile){
+            this.mobile=mobile;
+        }
+
+        public String getUname(){
         return uname;
     }
-    public void setUname(String uname){
+        public void setUname(String uname){
         this.uname=uname;
     }
 
-    public String getPwd(){
+        public String getPwd(){
         return pwd;
     }
-    public void setPwd(String pwd){
+        public void setPwd(String pwd){
         this.pwd=pwd;
     }
         public String getName(){

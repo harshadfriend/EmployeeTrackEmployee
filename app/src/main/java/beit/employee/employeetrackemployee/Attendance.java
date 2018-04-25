@@ -1,11 +1,17 @@
 package beit.employee.employeetrackemployee;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
@@ -37,11 +43,33 @@ public class Attendance extends AppCompatActivity {
         Bundle extras=getIntent().getExtras();
         imei=extras.getString("imei");
 
-        lvAttend=findViewById(R.id.lvAttend);
-
 
         lvAttend=(ListView)findViewById(R.id.lvAttend);
-        adp=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
+
+
+        adp=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1){
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
+                View view =super.getView(position, convertView, parent);
+                TextView textView=(TextView) view.findViewById(android.R.id.text1);
+                if(Settings.i==1){
+                    textView.setTextSize(15);
+                }
+                else if(Settings.i==2){
+                    textView.setTextSize(18);
+                }
+                else
+                    textView.setTextSize(21);
+            /*YOUR CHOICE OF COLOR*/
+  //              textView.setTextColor(Color.WHITE);
+//                textView.setTypeface(null, Typeface.BOLD);
+
+                return view;
+
+            }
+        };
         adp.setNotifyOnChange(true);
 
         adp2=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
@@ -94,7 +122,7 @@ public class Attendance extends AppCompatActivity {
                 }
              //   Toast.makeText(Attendance.this, "test"+dataSnapshot.getChildrenCount(), Toast.LENGTH_SHORT).show();
                 if(dataSnapshot.getChildrenCount()>0)
-                    lvAttend.setAdapter(adp);
+                    lvAttend.setAdapter(adp2);
             }
 
             @Override

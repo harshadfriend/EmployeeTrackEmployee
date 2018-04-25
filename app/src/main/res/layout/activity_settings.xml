@@ -4,6 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="beit.employee.employeetrackemployee.Settings">
 
+
+    <TextView
+        android:text="Select font size"
+        android:textSize="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <RadioGroup
+        android:id="@+id/rg"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RadioButton
+            android:id="@+id/rbOne"
+            android:text="Small"
+            android:textSize="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:id="@+id/rbTwo"
+            android:textSize="18dp"
+            android:text="Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:textSize="21dp"
+            android:id="@+id/rbThree"
+            android:text="Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RadioGroup>
 </LinearLayout>

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class WelcomeScreen extends AppCompatActivity {
 
-    String name;
+    String name,imei,address,mobile;
     TextView tvname;
 
     @Override
@@ -22,6 +22,11 @@ public class WelcomeScreen extends AppCompatActivity {
 
         Bundle extras=getIntent().getExtras();
         name=extras.getString("name");
+        imei=extras.getString("imei");
+        address=extras.getString("address");
+        mobile=extras.getString("mobile");
+
+
 
         tvname=findViewById(R.id.tvName);
         tvname.setText(name);
@@ -36,7 +41,12 @@ public class WelcomeScreen extends AppCompatActivity {
             @Override
             public void onFinish() {
                 finish();
-                startActivity(new Intent(WelcomeScreen.this,Home.class));
+                Intent i=new Intent(WelcomeScreen.this,Home.class);
+          /*      i.putExtra("name",name);
+                i.putExtra("mobile",mobile);
+                i.putExtra("address",address);
+                i.putExtra("imei",imei);*/
+                startActivity(i);
             }
         }.start();
 

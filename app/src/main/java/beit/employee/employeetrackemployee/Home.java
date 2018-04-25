@@ -18,6 +18,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.firebase.client.Firebase;
+import com.firebase.client.Query;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 
@@ -26,15 +32,18 @@ public class Home extends AppCompatActivity {
     Button btnProfile, btnSettings, btnHelp, btnLoginLogout, btnAttend, btnLocation;
     int day, month, year;
     int hour, minute, sec;
-    TelephonyManager telephonyManager;
+
     String latitude, longitude, imei;
     String time;
     int i;
 
+    TelephonyManager telephonyManager;
+    DatabaseReference dbref;
     Firebase fbref;
     fbase obj;
     fbase obj2;
     String dburl = "https://employeetracking-1caec.firebaseio.com/";
+    public static String name,address,mobile,ime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +52,36 @@ public class Home extends AppCompatActivity {
 
         //  Snackbar.make(findViewById(android.R.id.content),"Login Successful !",Snackbar.LENGTH_SHORT).show();
 
+        /*Bundle extras=getIntent().getExtras();
+        name=extras.getString("name");
+        ime=extras.getString("imei");
+        address=extras.getString("address");
+        mobile=extras.getString("mobile");*/
+
         Firebase.setAndroidContext(this);
         fbref = new Firebase(dburl);
+        dbref = FirebaseDatabase.getInstance().getReference();
+        telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+
+        com.google.firebase.database.Query q = dbref.child("employee").child("profile").orderByChild("imei").equalTo(telephonyManager.getImei());
+        q.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot data:dataSnapshot.getChildren()){
+                    fbase f=data.getValue(fbase.class);
+                    name=f.getName();
+                    ime=f.getImei();
+                    address=f.getAddress();
+                    mobile=f.getMobile();
+                    }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         obj = new fbase();
         obj2 = new fbase();
 
@@ -55,18 +92,27 @@ public class Home extends AppCompatActivity {
         btnAttend = findViewById(R.id.btnAttnd);
         btnLocation = findViewById(R.id.btnLocation);
 
+        if(Settings.i==1){
+            btnProfile.setTextSize(15);
+            btnAttend.setTextSize(15);
+            btnLocation.setTextSize(15);
+            btnSettings.setTextSize(15);
+            btnHelp.setTextSize(15);
+            btnLoginLogout.setTextSize(15);
+        }
+
+        if(Settings.i==2){
+            btnProfile.setTextSize(18);
+            btnAttend.setTextSize(18);
+            btnLocation.setTextSize(18);
+            btnSettings.setTextSize(18);
+            btnHelp.setTextSize(18);
+            btnLoginLogout.setTextSize(18);
+        }
+
 
         telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
+
 
         imei = telephonyManager.getImei();
 
@@ -91,6 +137,7 @@ public class Home extends AppCompatActivity {
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 startActivity(new Intent(Home.this,Settings.class));
 
             }

@@ -9,6 +9,7 @@
 
     <ListView
         android:id="@+id/lvAttend"
+
         android:divider="#faa"
         android:dividerHeight="2dp"
         android:layout_width="match_parent"
